@@ -23,7 +23,7 @@ export async function buscarDireccion(query: string): Promise<{ nombre: string; 
     headers: { 'Accept-Language': 'es', 'User-Agent': 'GPSTerceraEdad/1.0' },
   });
   const data = await res.json();
-  return data.map((item: any) => ({
+  return (data as { display_name: string; lat: string; lon: string }[]).map((item) => ({
     nombre: item.display_name,
     coordenada: { latitude: parseFloat(item.lat), longitude: parseFloat(item.lon) },
   }));
